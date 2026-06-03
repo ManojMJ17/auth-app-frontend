@@ -15,6 +15,7 @@ import { getUserByEmail } from '@/services/AuthService';
 import { useState } from 'react';
 import type { User as USERT } from '@/models/User';
 import toast from 'react-hot-toast';
+import axios from 'axios';
 
 const UserHome = () => {
   const [user1, setUser1] = useState<USERT | null>(null);
@@ -28,7 +29,9 @@ const UserHome = () => {
       setUser1(user1);
       toast.success('you are able to access secured apis');
     } catch (error) {
-      console.log(error.response);
+      if (axios.isAxiosError(error)) {
+        console.log(error.response);
+      }
     }
   };
 
